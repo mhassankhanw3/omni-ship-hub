@@ -82,16 +82,15 @@ function Dashboard() {
         <label
           htmlFor="dropzone-file"
           className="flex flex-col items-center justify-center w-full h-36 rounded-xl hover:bg-gray-200 transition-all border-2 border-gray-300 hover:border-gray-400 border-dashed cursor-pointer"
-          onClick={handleLabelClick}
+          // onClick={handleLabelClick}
         >
           <CSVReader
-            cssclassName="mx-auto m-0 p-0 bg-red-500"
+            cssclassName="mx-auto m-0 p-0"
             onFileLoaded={(data, fileInfo, originalFile) => {
               data.shift();
               setCsvData(data);
               console.log(data);
             }}
-            ref={csvReaderRef}
           />
         </label>
         <div>
