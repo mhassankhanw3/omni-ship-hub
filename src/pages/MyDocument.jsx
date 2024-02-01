@@ -136,7 +136,7 @@ const MyDocument = ({ csvData }) => {
     const canvas = document.createElement("canvas");
     try {
       bwipjs.toCanvas(canvas, {
-        bcid: "code11",
+        bcid: "code128",
         text: barcodeValueThree,
         scale: 1,
         height: 10,
@@ -244,7 +244,7 @@ const MyDocument = ({ csvData }) => {
           // });
           // const barcode2 = canvas2.toDataURL();
           const barcodeOne = generateBarCodeImage(barcodeValue);
-          const barcodeTwo = generateBarCodeTwoImage(trackingId);
+          const barcodeTwo = generateBarCodeTwoImage(data[23]);
           const randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;
 
           return (
@@ -429,7 +429,7 @@ const MyDocument = ({ csvData }) => {
                             // marginVertical: 2,
                           }}
                         >
-                          TRACKING #: {trackingId}
+                          TRACKING #: {data[23]}
                         </Text>
                       </View>
                       <View>
