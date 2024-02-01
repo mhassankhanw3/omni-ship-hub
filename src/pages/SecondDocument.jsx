@@ -251,6 +251,17 @@ const SecondDocument = ({ csvData }) => {
           const barcodeTwo = generateBarCodeTwoImage(data[23]);
           const randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;
 
+          let inputValue = data[23];
+
+          let formattedValue = [
+            inputValue.slice(0, 2),
+            inputValue.slice(2, 5),
+            inputValue.slice(5, 8),
+            inputValue.slice(8, 10),
+            inputValue.slice(10, 14),
+            inputValue.slice(14),
+          ].join(" ");
+
           return (
             <Page size="A6" key={index} id={`content-id-${index}`}>
               <View>
@@ -436,7 +447,7 @@ const SecondDocument = ({ csvData }) => {
                             // marginVertical: 1,
                           }}
                         >
-                          TRACKING #: {data[23]}
+                          TRACKING #: {formattedValue}
                         </Text>
                       </View>
                       <View
