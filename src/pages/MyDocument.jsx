@@ -41,13 +41,12 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   boldText: {
-    fontWeight: 700, // This will use the 700 font weight
+    fontWeight: 700,
     fontFamily: "Poppins",
   },
   underShipTo: {
-    fontWeight: 800, // This will use the 700 font weight
+    fontWeight: 800,
     fontFamily: "Poppins",
-    // display: "block",
     marginBottom: 2,
     fontSize: "9.6px",
     marginTop: 6,
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
   },
   StretchBoldText: {
-    fontWeight: 700, // This will use the 700 font weight
+    fontWeight: 700,
     fontFamily: "Poppins",
     transform: "scaleY(2)",
     fontSize: 16,
@@ -88,9 +87,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontFamily: "Poppins",
     paddingRight: 4,
-    // paddingTop: 3,
-    // marginTop: 0,
-    // transform: "scaleY(1)",
   },
 });
 
@@ -113,7 +109,6 @@ const MyDocument = ({ csvData }) => {
   };
 
   const canvasRef = React.useRef(null);
-  // Access the canvas element here
 
   const generateMaxiCodeImage = (barcodeValueTwo) => {
     const canvas = document.createElement("canvas");
@@ -215,34 +210,18 @@ const MyDocument = ({ csvData }) => {
               .toString()
               .padStart(4, "0")}`;
 
-            return `1Z 723 90Y 02 ${randomSection.slice(
+            return `1Z 723 90Y 02 ${randomSection?.slice(
               0,
               4
-            )} ${randomSection.slice(4)}`;
+            )} ${randomSection?.slice(4)}`;
           };
           const trackingId = generateUpsTrackingNumber();
           console.log(trackingId, "trackingId");
-          // let canvas, canvas2;
           const zipCode = data[14];
           const barcodeValue = `420${
             zipCode?.length === 5 ? zipCode : zipCode?.slice(0, 9)
           }`;
           console.log("barcodeValue One", barcodeValue, "barcodeValue One");
-          // canvas = document.createElement("canvas");
-          // JsBarcode(canvas, barcodeValue, {
-          //   displayValue: false,
-          //   width: 1,
-          //   height: 30,
-          // });
-          // const barcode = canvas.toDataURL();
-
-          // canvas2 = document.createElement("canvas");
-          // JsBarcode(canvas2, trackingId, {
-          //   displayValue: false,
-          //   width: 1,
-          //   height: 50,
-          // });
-          // const barcode2 = canvas2.toDataURL();
           const barcodeOne = generateBarCodeImage(barcodeValue);
           const barcodeTwo = generateBarCodeTwoImage(data[23]);
           const randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;
@@ -250,20 +229,18 @@ const MyDocument = ({ csvData }) => {
           let inputValue = data[23];
 
           let formattedValue = [
-            inputValue.slice(0, 2),
-            inputValue.slice(2, 5),
-            inputValue.slice(5, 8),
-            inputValue.slice(8, 10),
-            inputValue.slice(10, 14),
-            inputValue.slice(14),
+            inputValue?.slice(0, 2),
+            inputValue?.slice(2, 5),
+            inputValue?.slice(5, 8),
+            inputValue?.slice(8, 10),
+            inputValue?.slice(10, 14),
+            inputValue?.slice(14),
           ].join(" ");
 
           return (
             <Page size="A6" key={index} id={`content-id-${index}`}>
               <View>
-                <View
-                // className="w-[400px]"
-                >
+                <View>
                   <View
                     style={{
                       backgroundColor: "#fff",
@@ -277,7 +254,6 @@ const MyDocument = ({ csvData }) => {
                         flexDirection: "row",
                         alignItems: "flex-start",
                         padding: 2,
-                        // justifyContent: "space-between",
                       }}
                     >
                       <View style={{ fontSize: "8px" }}>
@@ -302,8 +278,6 @@ const MyDocument = ({ csvData }) => {
                             alignItems: "center",
                             justifyContent: "space-between",
                             width: 128,
-                            // borderWidth: 1,
-                            // borderColor: "black",
                           }}
                         >
                           <Text style={styles.normal}>{`${data[16]} LBS`}</Text>
@@ -437,7 +411,6 @@ const MyDocument = ({ csvData }) => {
                           style={{
                             fontSize: "10px",
                             paddingHorizontal: 2,
-                            // marginVertical: 2,
                           }}
                         >
                           TRACKING #: {formattedValue}
@@ -525,18 +498,5 @@ const MyDocument = ({ csvData }) => {
     </Document>
   );
 };
-
-// const DownloadLink = ({ csvData }) => (
-//   <div>
-// <PDFDownloadLink
-//   document={<MyDocument csvData={csvData} />}
-//   fileName="your-document.pdf"
-// >
-//   {({ blob, url, loading, error }) =>
-//     loading ? "Loading document..." : "Download PDF"
-//   }
-// </PDFDownloadLink>
-//   </div>
-// );
 
 export default MyDocument;

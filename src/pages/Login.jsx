@@ -20,20 +20,6 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     setUser(user);
-  //     console.log("before condition user", user);
-  //     if (!user) {
-  //       navigate("/");
-  //       console.log(user, "useruseruseruser");
-  //     } else {
-  //       navigate("/Dashboard");
-  //     }
-  //   });
-  //   return () => unsubscribe();
-  // }, [auth, user]);
-
   const submitHandle = async (e) => {
     e.preventDefault();
     // setLoading(true);
