@@ -11,24 +11,22 @@ import {
 } from "@react-pdf/renderer";
 import { randomAlphanumeric } from "random-string-alphanumeric-generator";
 
-// import { Barcode } from "@react-pdf/barcode";
-import Barcode from "react-barcode";
+
 import bwipjs from "bwip-js";
 
-// import Barcode from "react-jsbarcode";
 Font.register({
   family: "Poppins",
   fonts: [
     {
-      src: "../../public/Poppins/Poppins-SemiBold.ttf",
+      src: "/Poppins/Poppins-SemiBold.ttf",
       fontWeight: 600,
     },
     {
-      src: "../../public/Poppins/Poppins-Bold.ttf",
+      src: "/Poppins/Poppins-Bold.ttf",
       fontWeight: 700,
     },
     {
-      src: "../../public/Poppins/Poppins-ExtraBold.ttf",
+      src: "/Poppins/Poppins-ExtraBold.ttf",
       fontWeight: 900,
     },
   ],
@@ -96,7 +94,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SecondDocument = ({ csvData }) => {
+const SecondDocument = ({ csvData, fileName }) => {
   const getCurrentDate = () => {
     const currentDate = new Date();
     const day = currentDate.getDate().toString().padStart(2, "0");
@@ -169,7 +167,7 @@ const SecondDocument = ({ csvData }) => {
   };
 
   return (
-    <Document>
+    <Document title={fileName}>
       {csvData &&
         csvData.length > 0 &&
         csvData.map((data, index) => {
@@ -180,14 +178,7 @@ const SecondDocument = ({ csvData }) => {
               data[10]
             } ${data[13]}`
           );
-          console.log(
-            `01 96${data[14]?.padEnd(
-              9,
-              "0"
-            )} 840 002 1Z10838454 UPSN 40612Y 015 1/1 ${data && data[16]} N ${
-              data[10]
-            } ${data[13]}`
-          );
+          
           if (
             !data[0] ||
             !data[2] ||
@@ -227,7 +218,6 @@ const SecondDocument = ({ csvData }) => {
           const barcodeValue = `420${
             zipCode?.length === 5 ? zipCode : zipCode?.slice(0, 9)
           }`;
-          console.log(barcodeValue);
           const barcodeOne = generateBarCodeImage(barcodeValue);
           const barcodeTwo = generateBarCodeTwoImage(data[23]);
           const randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;

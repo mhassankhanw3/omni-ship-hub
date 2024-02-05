@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CheckAuth = ({ children }) => {
   const navigate = useNavigate();
@@ -16,10 +9,8 @@ const CheckAuth = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      console.log("before condition user", user);
       if (!user) {
         navigate("/");
-        console.log(user, "useruseruseruser");
       } else {
         navigate("/Dashboard");
       }
@@ -29,4 +20,4 @@ const CheckAuth = ({ children }) => {
   return <>{children}</>;
 };
 
-export default CheckAuth
+export default CheckAuth;

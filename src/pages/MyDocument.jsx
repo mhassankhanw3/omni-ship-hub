@@ -13,23 +13,21 @@ import {
 import { randomAlphanumeric } from "random-string-alphanumeric-generator";
 import bwipjs from "bwip-js";
 
-// import { Barcode } from "@react-pdf/barcode";
-import Barcode from "react-barcode";
-// import Barcode from "react-jsbarcode";
+
 
 Font.register({
   family: "Poppins",
   fonts: [
     {
-      src: "../../public/Poppins/Poppins-SemiBold.ttf",
+      src: "/Poppins/Poppins-SemiBold.ttf",
       fontWeight: 600,
     },
     {
-      src: "../../public/Poppins/Poppins-Bold.ttf",
+      src: "/Poppins/Poppins-Bold.ttf",
       fontWeight: 700,
     },
     {
-      src: "../../public/Poppins/Poppins-ExtraBold.ttf",
+      src: "/Poppins/Poppins-ExtraBold.ttf",
       fontWeight: 900,
     },
   ],
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const MyDocument = ({ csvData }) => {
+const MyDocument = ({ csvData, fileName }) => {
   const getCurrentDate = () => {
     const currentDate = new Date();
     const day = currentDate.getDate().toString().padStart(2, "0");
@@ -107,8 +105,6 @@ const MyDocument = ({ csvData }) => {
 
     return `${month}/${year}`;
   };
-
-  const canvasRef = React.useRef(null);
 
   const generateMaxiCodeImage = (barcodeValueTwo) => {
     const canvas = document.createElement("canvas");
@@ -163,7 +159,7 @@ const MyDocument = ({ csvData }) => {
   };
 
   return (
-    <Document>
+    <Document title={fileName}>
       {csvData &&
         csvData.length > 0 &&
         csvData.map((data, index) => {
@@ -174,14 +170,7 @@ const MyDocument = ({ csvData }) => {
               data[10]
             } ${data[13]}`
           );
-          console.log(
-            `01 96${data[14]?.padEnd(
-              9,
-              "0"
-            )} 840 002 1Z10838454 UPSN 40612Y 015 1/1 ${data && data[16]} N ${
-              data[10]
-            } ${data[13]}`
-          );
+
           if (
             !data[0] ||
             !data[2] ||
@@ -216,12 +205,10 @@ const MyDocument = ({ csvData }) => {
             )} ${randomSection?.slice(4)}`;
           };
           const trackingId = generateUpsTrackingNumber();
-          console.log(trackingId, "trackingId");
           const zipCode = data[14];
           const barcodeValue = `420${
             zipCode?.length === 5 ? zipCode : zipCode?.slice(0, 9)
           }`;
-          console.log("barcodeValue One", barcodeValue, "barcodeValue One");
           const barcodeOne = generateBarCodeImage(barcodeValue);
           const barcodeTwo = generateBarCodeTwoImage(data[23]);
           const randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;

@@ -4,31 +4,14 @@ import { useNavigate } from "react-router-dom";
 import "flowbite";
 import CSVReader from "react-csv-reader";
 import { usePDF } from "react-to-pdf";
-import generatePDF, { Resolution, Margin } from "react-to-pdf";
-import Barcode from "react-barcode";
-import { randomAlphanumeric } from "random-string-alphanumeric-generator";
-import JSZip from "jszip";
-import html2pdf from "html2pdf.js";
-import { Dropdown } from "flowbite-react";
-
 import "../App.css";
 import MainDocument from "./MainDocument";
 import CheckAuth from "../Components/AuthCheck";
-const options = {
-  method: "build",
-  page: {
-    format: "A5",
-  },
-};
 
 function Dashboard() {
-  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   const navigate = useNavigate();
   const auth = getAuth();
-  const [user, setUser] = useState(null);
   const [csvData, setCsvData] = useState(null);
-  const getTargetElement = () => document.getElementById("content-id");
-  const [allPdfData, setAllPdfData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleLogout = async () => {
@@ -43,11 +26,8 @@ function Dashboard() {
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(
-      event.target.value,
-      "selectedOptionselectedOptionselectedOption"
-    );
   };
+
   const csvReaderRef = useRef(null);
   const handleLabelClick = () => {
     csvReaderRef.current?.click();
@@ -82,14 +62,12 @@ function Dashboard() {
         <label
           htmlFor="dropzone-file"
           className="flex flex-col items-center justify-center w-full h-36 rounded-xl hover:bg-gray-200 transition-all border-2 border-gray-300 hover:border-gray-400 border-dashed cursor-pointer"
-          // onClick={handleLabelClick}
         >
           <CSVReader
             cssclassName="mx-auto m-0 p-0"
             onFileLoaded={(data, fileInfo, originalFile) => {
               data.shift();
               setCsvData(data);
-              console.log(data);
             }}
           />
         </label>
