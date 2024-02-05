@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "flowbite";
 import CSVReader from "react-csv-reader";
-import { usePDF } from "react-to-pdf";
 import "../App.css";
 import MainDocument from "./MainDocument";
 import CheckAuth from "../Components/AuthCheck";
@@ -21,6 +20,7 @@ function Dashboard() {
       console.log("User logout!");
     } catch (error) {
       console.error("Error logging out:", error);
+      navigate("/dashboard");
     }
   };
 

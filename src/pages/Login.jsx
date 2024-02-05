@@ -16,7 +16,6 @@ export default function Login() {
       .then((userCredential) => {
         const user = userCredential.user;
         navigate("/dashboard");
-        // ...
       })
       .catch((error) => {
         console.log(error, "error");

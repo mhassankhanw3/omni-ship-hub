@@ -13,8 +13,6 @@ import {
 import { randomAlphanumeric } from "random-string-alphanumeric-generator";
 import bwipjs from "bwip-js";
 
-
-
 Font.register({
   family: "Poppins",
   fonts: [
