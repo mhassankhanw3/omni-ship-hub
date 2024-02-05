@@ -12,7 +12,7 @@ const CheckAuth = ({ children }) => {
       if (!user) {
         navigate("/");
       } else {
-        navigate("/Dashboard");
+        navigate("/dashboard");
       }
     });
     return () => unsubscribe();
